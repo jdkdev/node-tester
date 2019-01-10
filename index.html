@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Express Starter</title>
+    <link rel="stylesheet" href="https://unpkg.com/picnic">
+    <style>
+        main {
+            padding: 80px 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <div v-cloak id="app">
+        <nav>
+            <h3>Express Starter</h3>
+        </nav>
+        <main>
+            <section class="tabs two">
+                <input id='tab-1' type='radio' name='tabgroup' checked />
+                <label class="pseudo button toggle" for="tab-1">One</label>
+                <input id='tab-2' type='radio' name='tabgroup'>
+                <label class="pseudo button toggle" for="tab-2">Two</label>
+                <div class="row">
+                    <article id="form" class="form">
+                        <fieldset class="flex two">
+                            <label><input type="email" placeholder="Email"></label>
+                            <label><input type="password" placeholder="Password"></label>
+                        </fieldset>
+                        <textarea placeholder="Textarea"></textarea>
+                    </article>
+                    <article class="json">
+                        <button data-tooltip="This is a great tooltip" class="tooltip-right">
+                            {{message}}
+                        </button>
+                    </article>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "express-template",
+  "version": "0.0.1",
+  "description": "starter set",
+  "main": "server.js",
+  "author": "j",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
