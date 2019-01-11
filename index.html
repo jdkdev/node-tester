@@ -189,6 +189,7 @@
                                 <vue-ace-editor 
                                     v-model:value ="scss" 
                                     :options="editoroptions" 
+                                    v-on:styles-changed="convert"
                                     id="editor" >
                                 </vue-ace-editor>
                                 <button @click="whitespace">Clear Whitespace</button>
@@ -228,7 +229,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"></script>
     <script>
         devURI = 'https://knightworks-dev.herokuapp.com/'
-        devURI = 'localhost:3000/'
         const VueAceEditor = {
             //  simplified model handling using `value` prop and `input` event for $emit 
             props:['value','id','options'],
@@ -236,11 +236,12 @@
             //  add dynmic class and id (if not set) based on component tag
             template:`
                 <div :id="id ? id: $options._componentTag +'-'+ _uid" 
-                     :class="$options._componentTag">
+                     :class="$options._componentTag"
+                    @mouseout="$emit('styles-changed')"
+                >
                     <slot></slot>
                 </div>
             `,
-
             watch:{
                 value() { 
                     //  two way binding – emit changes to parent
@@ -252,8 +253,7 @@
                     }
                 }
             },
-           
-            mounted(){
+            mounted() {
                 //  editor
                 this.editor = window.ace.edit(this.$el.id);
                 
@@ -278,7 +278,7 @@
                 this.options.highlightActiveLine = this.options.highlightActiveLine || false;
 
                 //  hide cursor 
-                if(this.options.cursor === 'none' || this.options.cursor === false){
+                if(this.options.cursor === 'none' || this.options.cursor === false) {
                     this.editor.renderer.$cursorLayer.element.style.display = 'none';
                     delete this.options.cursor; 
                 }
@@ -306,10 +306,12 @@
                     //  oldValue set to prevent internal updates
                      this.value = this.oldValue = this.editor.getValue();
                 });
-                
-
             },
-            methods:{ editor(){ return this.editor } }
+            methods: { 
+                editor() {
+                    return this.editor 
+                } 
+            }
         }
         new Vue({
             el: '#app',
@@ -349,10 +351,8 @@
                   this.scss =  this.scss.trim().replace(/\s/g,'')
                 },
                 convert() {
-                    console.log(typeof this.scss)
                     code = encodeURIComponent(this.scss.trim())
-                    console.log(code)
-                    axios.get('convert?scss=' + code, {
+                    axios.get(devURI + 'convert?scss=' + code, {
                         headers: {
                             'Content-Type': 'application/json'
                         }
