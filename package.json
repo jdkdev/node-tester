@@ -16,10 +16,13 @@
     "build": "run-s build:*",
     "watch:css": "onchange \"scss\" -- run-s build:css",
     "watch:js": "onchange \"js\" -- run-s build:js",
-    "watch": "run-p serve watch:*"
+    "watch": "run-p serve watch:*",
+    "convert": "node-sass --output-style compressed -o client_output/css client/"
   },
   "dependencies": {
-    "express": "latest"
+    "body-parser": "^1.18.3",
+    "express": "latest",
+    "formidable": "^1.2.1"
   },
   "devDependencies": {
     "browser-sync": "^2.26.3",

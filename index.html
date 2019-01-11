@@ -28,7 +28,7 @@
                             <label><input type="email" placeholder="Email"></label>
                             <label><input type="password" placeholder="Password"></label>
                         </fieldset>
-                        <textarea placeholder="Textarea"></textarea>
+                        <textarea placeholder="Text area"></textarea>
                     </article>
                     <article>
                         <button data-tooltip="This is a great tooltip" class="tooltip-right">
@@ -41,6 +41,29 @@
     </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="js/main.js"></script>
+    <script>
+    
+new Vue({
+    el: '#app',
+    data: {
+        message: 'hello the'
+    },
+    created() {
+        this.getJson()
+    },
+    filters: {
+    },
+    computed: {
+    },
+    methods: {
+        getJson() {
+            console.log('hello')
+            let scssObj = "body {background: red; & > section {background: black;}}"
+            axios.get('convert?scss=' + encodeURIComponent(scssObj))
+            .then(res => console.log(res.data))
+        }
+    },
+})
+    </script>
 </body>
 </html>
