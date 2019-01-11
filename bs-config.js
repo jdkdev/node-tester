@@ -14,7 +14,7 @@
  */
 module.exports = {
     "ui": {
-        "port": 3001
+        "port": 8889
     },
     "files": false,
     "watchEvents": [
@@ -28,7 +28,7 @@ module.exports = {
     },
     "server": true,
     "proxy": false,
-    "port": 3000,
+    "port": 8888,
     "middleware": false,
     "serveStatic": ['./dist/css'],
     "ghostMode": {
@@ -48,7 +48,7 @@ module.exports = {
     "logSnippet": true,
     "rewriteRules": [],
     "open": "local",
-    "browser": "default",
+    "browser": "google-chrome",
     "cors": false,
     "xip": false,
     "hostnameSuffix": false,
@@ -59,7 +59,7 @@ module.exports = {
     "scrollRestoreTechnique": "window.name",
     "scrollElements": [],
     "scrollElementMapping": [],
-    "reloadDelay": 0,
+    "reloadDelay": 2000,
     "reloadDebounce": 500,
     "reloadThrottle": 0,
     "plugins": [],

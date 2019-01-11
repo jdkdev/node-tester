@@ -2,27 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Express Starter</title>
+    <title v-text="message">Node</title>
     <link rel="stylesheet" href="https://unpkg.com/picnic">
+    <link rel="stylesheet main" type="text/css" href="css/style.css">
     <style>
         main {
             padding: 80px 100px;
         }
     </style>
-    <link rel="stylesheet main" type="text/css" href="dist/css/style.css">
+    <style id="preview">
+        .preview > h1 {
+            color: blue;
+        }
+    </style>
 </head>
 <body>
     <div v-cloak id="app">
         <nav>
             <h3>Express Starter</h3>
+            <a href="https://picnicss.com/documentation" target="_blank">CSS Docs</a>
         </nav>
         <main>
-            <section class="tabs two">
+            <section class="tabs four">
                 <input id='tab-1' type='radio' name='tabgroup' checked />
-                <label class="pseudo button toggle" for="tab-1">Form Example</label>
+                <label class="pseudo button toggle" for="tab-1">SCSS Converter</label>
                 <input id='tab-2' type='radio' name='tabgroup'>
                 <label class="pseudo button toggle" for="tab-2">Two</label>
+                <input id='tab-3' type='radio' name='tabgroup'>
+                <label class="pseudo button toggle" for="tab-3">Examples</label>
+                <input id='tab-4' type='radio' name='tabgroup'>
+                <label class="pseudo button toggle" for="tab-4">Grid</label>
                 <div class="row">
+                    <article>
+                        <button @click="convert">Convert</button>
+                        <textarea class="page" placeholder="Text area">
+                            {{ scss }}
+                        </textarea>
+                        <textarea class="page" placeholder="Text area">
+                            {{ css }}
+                        </textarea>
+                        <div class="preview">
+                            <h1>Testing <small>this should be pink</small></h1>
+                        </div>
+                    </article>
                     <article>
                         <fieldset class="flex two">
                             <label><input type="email" placeholder="Email"></label>
@@ -31,9 +53,18 @@
                         <textarea placeholder="Text area"></textarea>
                     </article>
                     <article>
-                        <button data-tooltip="This is a great tooltip" class="tooltip-right">
-                            {{message}}
-                        </button>
+                        <fieldset class="flex three">
+                            <label><input type="email" placeholder="Email"></label>
+                            <label><input type="password" placeholder="Password"></label>
+                        </fieldset>
+                        <textarea placeholder="Text area"></textarea>
+                    </article>
+                    <article class="flex three grow demo">
+                        <div><span>1</span></div>
+                        <div><span>2</span></div>
+                        <div><span>3</span></div>
+                        <div><span>4</span></div>
+                        <div><span>5</span></div>
                     </article>
                 </div>
             </section>
@@ -42,28 +73,29 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-    
-new Vue({
-    el: '#app',
-    data: {
-        message: 'hello the'
-    },
-    created() {
-        this.getJson()
-    },
-    filters: {
-    },
-    computed: {
-    },
-    methods: {
-        getJson() {
-            console.log('hello')
-            let scssObj = "body {background: red; & > section {background: black;}}"
-            axios.get('convert?scss=' + encodeURIComponent(scssObj))
-            .then(res => console.log(res.data))
-        }
-    },
-})
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'hello there',
+                scss: 'h1 { color: red; > small { color: pink }}',
+                css: 'color: red',
+            },
+            filters: {
+            },
+            computed: {
+            },
+            methods: {
+                convert() {
+                    axios.get('convert?scss=' + encodeURIComponent(this.scss))
+                    .then(res => {
+                        console.log(res.data)
+                        this.css = res.data.css
+                        styles = document.getElementById('preview')
+                        styles.innerHTML = this.css
+                    })
+                }
+            },
+        })
     </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const fs = require("fs")
 const path = require('path')
@@ -25,21 +26,27 @@ const lg = (val='nothing passed in') => {
 }
 
 //
+//app.use(function(req, res, next) {
+    //res.header("Access-Control-Allow-Origin", "*");
+    //res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //next();
+//});
 app.get('/', function(req, res) {
     lg(path.join(__dirname, 'index.html'))
     res.sendFile(path.join(__dirname, 'index.html'));
 })
 
-app.get('/convert', function(req, res) {
-    let scss = req.query.scss
-    l(req.query)
-    l(typeof scss)
-    let css = sass.renderSync({ data: scss,
-      indentedSyntax: true,
-      outputStyle : 'compressed'
-    })
-    res.json({css : css.css.toString()})
+app.get('/test', function(req, res) {
+    res.send('ok')
+})
 
+app.get('/convert', cors(), function(req, res) {
+    scss = req.query.scss
+    result = sass.renderSync({ data: scss,
+      indentedSyntax: true,
+    })
+
+    res.json({css : result.css.toString().trim()})
     
 })
 app.get('/math', function(req, res) {
