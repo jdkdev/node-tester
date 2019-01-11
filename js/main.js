@@ -1,7 +1,7 @@
-var app = new Vue({
-    el: "#app",
+new Vue({
+    el: '#app',
     data: {
-        message: 'hello'
+        message: 'hello th'
     },
     created() {
     },
