@@ -36,15 +36,16 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 })
 
+
 app.get('/test', function(req, res) {
     res.send('ok')
 })
 
 app.get('/convert', cors(), function(req, res) {
     scss = req.query.scss
+    l(scss)
     result = sass.renderSync({ data: scss,
-      indentedSyntax: true,
-    })
+    }, (err) => console.log(err))
 
     res.json({css : result.css.toString().trim()})
     
