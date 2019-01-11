@@ -10,7 +10,7 @@
     "scss": "node-sass --output-style compressed -o dist/css scss",
     "lint": "eslint js || true",
     "uglify": "mkdirp dist/js -p && cp js/*.js dist/js/main.js",
-    "serve": "browser-sync start --server --files \"dist/css/*.css, dist/js/*.js, **/*.html, !node_modules/**/*.html\"",
+    "serve": "browser-sync start -c bs-config.js",
     "build:css": "run-s scss",
     "build:js": "run-s lint uglify",
     "build": "run-s build:*",
